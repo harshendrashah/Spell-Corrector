@@ -1,0 +1,9 @@
+epochs = 100
+batch_size = 128
+num_layers = 3 
+rnn_size = 512
+embedding_size = 128
+learning_rate = 0.007
+direction = 2
+threshold = 0.75
+keep_probability = 0.75

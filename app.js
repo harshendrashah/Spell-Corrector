@@ -149,13 +149,61 @@ function terminal() {
 }
 
 function writing() {
-    http.createServer(function (req,res) {
-        fs.readFile('output.txt', 'utf8', function (err, data) {
-            res.write("OUTPUT: \n\n\n");
-            res.end(data);
+    var text = "";
+    var result = "";
+    fs.readFile('mod_input.txt','utf8',function (err,data) {
+            text = data;
+        });
+    fs.readFile('output.txt', 'utf8', function (err, data) {
+
+            var arr = data.split(" ");
+            for(var i = 0;i < arr.length;i++) {
+                if(text.indexOf(arr[i]) === -1) {
+                    result += "<"+"span"+">"+arr[i]+"<"+"/"+"span"+">"+" ";
+                }
+                else
+                    result += arr[i] +" "
+            }
+            res.end(`
+                    <!doctype html>
+                    <html>
+                        <head>
+                            <style type="text/css">
+                                body {
+                                    background: black;
+                                }
+                                
+                                #header {
+                                    color:  #48c9b0;
+                                    font-size: 30px;
+                                    font-family: SansSerif;
+                                }
+                                
+                                #value {
+                                    color:  white;
+                                    font-size: 20px;
+                                }
+                                
+                                span {
+                                        color: green;
+                                }
+                                
+                                
+                            </style>
+                        </head>
+                        
+                        <body>
+                            <p id="header">INPUT</p>
+                             <p id="value">${text}</p>
+                             <br/>
+                            <p id="header">OUTPUT</p>
+                            <p id="value">${result}</p>
+                        </body>    
+                    </html>`);
         });
 
     }).listen(8000);
+
 
 }
 

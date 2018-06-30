@@ -149,12 +149,16 @@ function terminal() {
 }
 
 function writing() {
+
     var text = "";
     var result = "";
-    fs.readFile('mod_input.txt','utf8',function (err,data) {
+
+    http.createServer(function (req,res) {
+
+        fs.readFile('mod_input.txt','utf8',function (err,data) {
             text = data;
         });
-    fs.readFile('output.txt', 'utf8', function (err, data) {
+        fs.readFile('output.txt', 'utf8', function (err, data) {
 
             var arr = data.split(" ");
             for(var i = 0;i < arr.length;i++) {
@@ -203,7 +207,6 @@ function writing() {
         });
 
     }).listen(8000);
-
 
 }
 

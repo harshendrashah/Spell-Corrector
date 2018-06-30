@@ -4,32 +4,26 @@ testing_dict = {}
 
 test_sen = []
 
-testing_scr = open("testing_script2", "r")
+testing_scr = open("input.txt", "r")
 
-test_sent = testing_scr.read().split(',')
-for i in range(0,len(test_sent)-1):
-    arr = test_sent[i].split(":")
-    str1 = arr[0]
-    str2 = arr[1]
-    testing_dict[str1] = str2
+test_sent = testing_scr.read().split('.')
+test_sent = testing_scr.read().split('.')
+mod = test_sent[0].split("=");
+test_sent[0] = mod[1]
+for i in range(0,len(test_sent)):
+    test_sent[i] = test_sent[i].replace("+"," ")
 #print(testing_dict)
 print("***************************************************")
 # Create your own sentence or use one from the dataset
 total = 0
 count = 0
-
-for key,value in testing_dict.items():
-    text = key
+filestr = ""
+for arr in test_sent:
+    text = arr
     text = text.lower()
     text = text_to_ints(text)
 
-    exp_output = value
-    exp_output = exp_output.lower()
-    exp_output = text_to_ints(exp_output)
-
-    #random = np.random.randint(0,len(testing_sorted))
-    #text = testing_sorted[random]
-    #text = noise_maker(text, 0.95)
+    
 
     checkpoint = "./kp=0.75,nl=3,th=0.75.ckpt"
     tf.reset_default_graph()
@@ -54,23 +48,16 @@ for key,value in testing_dict.items():
     print('  Input Words: {}'.format("".join([int_to_vocab[i] for i in text])))
 
     pred = ""
-    exp = ""
 
     print('\nSummary')
     print('  Word Ids:       {}'.format([i for i in answer_logits if i != pad]))
     print('  Response Words: {}'.format("".join([int_to_vocab[i] for i in answer_logits if i != pad])))
     pred = "".join([int_to_vocab[i] for i in answer_logits if i != pad])
+    filestr = filestr+pred+".\n"
+file=open("output.txt",'w+');
+file.write(filestr)
+file.close()    
     
-    print('\nExpected_answer')
-    print('  Word Ids:    {}'.format([i for i in exp_output]))
-    print('  Exp Output Words: {}'.format("".join([int_to_vocab[i] for i in exp_output])))
-    exp = "".join([int_to_vocab[i] for i in exp_output])
     
     
-    count = count + 1
-    seq=difflib.SequenceMatcher(None, pred,exp)
-    d=seq.ratio()*100
-    total = total + d
-
-
-print(total/count)
+    

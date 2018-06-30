@@ -5,18 +5,17 @@ testing_dict = {}
 test_sen = []
 
 testing_scr = open("input.txt", "r")
+value=""
 
-test_sent = testing_scr.read().split('.')
 test_sent = testing_scr.read().split('.')
 mod = test_sent[0].split("=");
 test_sent[0] = mod[1]
 for i in range(0,len(test_sent)):
     test_sent[i] = test_sent[i].replace("+"," ")
+    value = value + test_sent[i]+"."
 #print(testing_dict)
 print("***************************************************")
 # Create your own sentence or use one from the dataset
-total = 0
-count = 0
 filestr = ""
 for arr in test_sent:
     text = arr
@@ -54,6 +53,11 @@ for arr in test_sent:
     print('  Response Words: {}'.format("".join([int_to_vocab[i] for i in answer_logits if i != pad])))
     pred = "".join([int_to_vocab[i] for i in answer_logits if i != pad])
     filestr = filestr+pred+".\n"
+    
+file = open("mod_input.txt",'w+')
+file.write(value)
+file.close()
+
 file=open("output.txt",'w+');
 file.write(filestr)
 file.close()    

@@ -63,16 +63,16 @@ const server = http.createServer((req, res) => {
                     }
                     
                     button {
-                        cursor: pointer;
-                        background: #34a853;
-                        color: #f2f2f2;
-                        border: 1px solid #34a853;
+                        color : #f2f2f2;
+                        width: 90px;
+                        padding : 18px 18px;
+                        background:   #34a853 ;
+                        border: 1px solid   #34a853;
                         border-radius: 5px;
-                        width: 100px;
-                        padding: 20px;
-                        margin-right: 5px;
                         font-size: 15px;
                         font-family: Arial;
+                        cursor: pointer;
+                        margin-right: 5px;
                     }
                     
                     button:hover {
@@ -82,7 +82,7 @@ const server = http.createServer((req, res) => {
                     
                     a {
                         text-decoration: none;
-                        color : white;
+                        color : #f2f2f2;
                         width: 100px;
                         height: 300px;
                         padding : 18px 18px;

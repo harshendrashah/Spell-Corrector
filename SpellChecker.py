@@ -57,7 +57,7 @@ for arr in test_sent:
     for i in arr:
         filestr = filestr+i+" "
     filestr = filestr[:-1]
-    filestr = filestr+" ."
+    filestr = filestr+"."
     
 file = open("mod_input.txt",'w+')
 file.write(value)

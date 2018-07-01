@@ -7,20 +7,14 @@ const server = http.createServer((req, res) => {
     if (req.method === 'POST') {
         var body = '';
         req.on('data', chunk => {
-            body += chunk.toString();
+            body += decodeURIComponent(chunk.toString());
         });
         req.on('end', () => {
             fs.writeFileSync("input.txt", body);
             //res.writeHeader(200, {"Content-Type": "text/html"});
-
-
-
-
             var val = terminal();
-
             if(val>0)
                 writing();
-
         });
     }
 
@@ -44,7 +38,6 @@ const server = http.createServer((req, res) => {
                         
                         height: 400px;
                         width: 100%;
-                        
                                    
                     }
                     
@@ -191,7 +184,6 @@ function writing() {
                                 span {
                                         color: green;
                                 }
-                                
                                 
                             </style>
                         </head>

@@ -1,0 +1,10 @@
+pandas
+numpy
+tensorflow
+os
+collections
+time
+re
+json
+difflib
+sklearn

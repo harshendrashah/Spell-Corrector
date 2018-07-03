@@ -13,9 +13,7 @@ for i in range(0,len(test_sent)):
     test_sent[i] = test_sent[i].replace("+"," ")
     value = value + test_sent[i]+"."
 print("***************************************************")
-# Create your own sentence or use one from the dataset
-total = 0
-count = 0
+
 filestr = ""
 for arr in test_sent:
     text = arr
@@ -29,7 +27,6 @@ for arr in test_sent:
 
     with tf.Session() as sess:
         # Load saved model
-        #saver = tf.train.Saver()
         saver.restore(sess, './kp=0.75,nl=3,th=0.75.ckpt')
 
         #Multiply by batch_size to match the model's input parameters

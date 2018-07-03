@@ -80,16 +80,11 @@ def noise_maker(sentence, threshold):
         i += 1
     return noisy_sentence
 
-# Check to ensure noise_maker is making mistakes correctly.
 
-#for sentence in training_sorted[:5]:
-    #print(sentence)
-    #print(noise_maker(sentence, threshold))
-    #print()
 
 def model_inputs():
   
-    #tf.device("/device:GPU:0")
+    
     '''Create palceholders for inputs to the model'''
     
     with tf.name_scope('inputs'):
@@ -99,16 +94,9 @@ def model_inputs():
     keep_prob = tf.placeholder(tf.float32, name='keep_prob')
     inputs_length = tf.placeholder(tf.int32, (None,), name='inputs_length')
     targets_length = tf.placeholder(tf.int32, (None,), name='targets_length')
-    #targets_length = tf.Variable([2, 3, 5, 7, 11], tf.int32)
     max_target_length = tf.reduce_max(targets_length, name='max_target_len')
-    #max_target_length = tf.to_int32(max_target_len, name='ToInt32')
-    #max_target_length =
 
-    
-    #print("max_length:", tf.Print(max_target_length,[max_target_length]))
-   
-
-    return inputs, targets, keep_prob, inputs_length, targets_length ,max_target_length  #tf.reduce_max(targets_length,name='max_target_len')
+    return inputs, targets, keep_prob, inputs_length, targets_length ,max_target_length  
 
 def process_encoding_input(targets, vocab_to_int, batch_size):
     '''Remove the last word id from each batch and concat the <GO> to the begining of each batch'''
@@ -175,7 +163,6 @@ def training_decoding_layer(dec_embed_input, targets_length, dec_cell, initial_s
                                                            initial_state,
                                                            output_layer) 
         
-        #initial_state = dec_cell.zero_state(dtype=tf.float32, batch_size=batch_size)
 
         training_logits, one,two = tf.contrib.seq2seq.dynamic_decode(training_decoder,
                                                                      output_time_major=False,
@@ -231,23 +218,7 @@ def decoding_layer(dec_embed_input, embeddings, enc_output, enc_state, vocab_siz
                                                               attn_mech,
                                                               rnn_size)
     
-    #initial_state = tf.contrib.seq2seq.AttentionWrapperState(enc_state,_zero_state_tensors(rnn_size, batch_size, tf.float32))
     
-    #initial_state = dec_cell.zero_state(dtype=tf.float32, batch_size=batch_size)
-    
-#     attn_zero = dec_cell.zero_state(batch_size , tf.float32 )
-
-#     attn_zero = attn_zero.clone(cell_state = enc_state)
-                                                                                        
-#     initial_state = tf.contrib.seq2seq.AttentionWrapperState(cell_state = enc_state, 
-#                                                               attention = attn_zero,
-#                                                               time = 0,
-#                                                               alignments=attn_mech,
-#                                                               alignment_history=None,
-#                                                               attention_state = dec_cell)
-
-#     #initial_state = enc_state
-  
     initial_state = dec_cell.zero_state(dtype=tf.float32, batch_size=batch_size).clone(cell_state=enc_state)
 
     with tf.variable_scope("decode"):
@@ -453,7 +424,7 @@ for code in codes:
 int_to_vocab = {}
 for character, value in vocab_to_int.items():
     int_to_vocab[value] = character
-#print(int_to_vocab)
+
 # Split the text from the books into sentences.
 sentences = []
 '''for book in clean_books:
@@ -474,8 +445,7 @@ for i in range(0,len(sentences)):
         else:
             words_list[temp_list[j]] = 1
 
-#for key,value in words_list.items():
-#   print(key,value,"\n")
+
 
 # Convert sentences to integers
 int_sentences = []
@@ -487,7 +457,7 @@ for sentence in sentences:
             int_sentence.append(vocab_to_int[character])
     int_sentences.append(int_sentence)
 
-#print(int_sentences[0])
+
 
 # Find the length of each sentence
 lengths = []

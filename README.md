@@ -29,3 +29,5 @@ pip3 install -r requirements.txt
 4. By clicking on the Output Button in your browser you can view the results and the changes.
 
 ## In action:
+
+![Demo](https://github.com/harshendrashah/Spell-Corrector/blob/master/clean_data/In-action.gif)
